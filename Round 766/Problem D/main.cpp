@@ -1,0 +1,63 @@
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+#include <queue>
+
+using namespace std;
+
+int gcd(int x,int y){
+    if(x>y) swap(x,y);
+    int r = y%x;
+    while(r!=0){
+        y=x;
+        x=r;
+        r=y%x;
+    }
+    return x;
+}
+
+void solve(){
+    int n;
+    cin >> n;
+    unordered_set<int> numbers_found;
+    vector<int> v;
+    queue<int> q;
+    for(int i=0; i<n; i++){
+        int x;
+        cin >> x;
+        numbers_found.insert(x);
+        v.push_back(x);
+    }
+    long long added = 0;
+    for(int i=0;i<v.size();i++){
+        for(int j=i+1; j<v.size(); j++){
+            int g = gcd(v[i],v[j]);
+            if(numbers_found.count(g)==0){
+                numbers_found.insert(g);
+                q.push(g);
+                added++;
+            }
+        }
+    }
+
+    while(!q.empty()){
+        int x = q.front();
+        q.pop();
+        for(int i=0;i<v.size(); i++){
+            int g = gcd(v[i],x);
+            if(numbers_found.count(g)==0){
+                numbers_found.insert(g);
+                q.push(g);
+                added++;
+            }
+        }
+    }
+
+    cout << added << endl;
+}
+
+int main()
+{
+    solve();
+    return 0;
+}
