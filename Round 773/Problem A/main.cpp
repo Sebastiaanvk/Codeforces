@@ -4,17 +4,17 @@
 using namespace std;
 
 void solve(){
-    int n, x;
+    long long n, x;
     cin >> n >> x;
     vector<int> v(n);
-    for(int i=0; i<n; i++) cin >> v[i];
+    for(long long i=0; i<n; i++) cin >> v[i];
     sort(v.begin(),v.end());
     vector<int> already_used(n,false);
 
-    int i=0;
-    int j=1;
+    long long i=0;
+    long long j=1;
 
-    int added = 0;
+    long long added = 0;
 
     while(i<n){
         while(j<n&&v[j]<x*v[i]){
@@ -40,7 +40,7 @@ void solve(){
 
 int main()
 {
-    int t;
+    long long t;
     cin >> t;
     while(t--) solve();
     return 0;
